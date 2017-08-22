@@ -40,10 +40,25 @@ public class FileServiceImpl implements FileService {
 		if (!new File(UPLOAD_PATH).exists()) {
     		new File(UPLOAD_PATH).mkdir();
     	}
+		// check the root folder's permission
+		File rootFolder = new File(UPLOAD_PATH);
+		if (!rootFolder.canWrite() || !rootFolder.canExecute() || !rootFolder.canRead()) {
+			rootFolder.setWritable(true, false);
+			rootFolder.setExecutable(true, false);
+			rootFolder.setReadable(true, false);
+		}
+    	
 		// check if sub-file directory exists
     	String filePath = UPLOAD_PATH + userId;
     	if (!new File(filePath).exists()) {
     		new File(filePath).mkdir();
+    	}
+    	// check the sub-folder's permission
+    	File subFolder = new File(filePath);
+    	if (!subFolder.canWrite() || !subFolder.canExecute() || !subFolder.canRead()) {
+    		subFolder.setWritable(true, false);
+    		subFolder.setExecutable(true, false);
+    		subFolder.setReadable(true, false);
     	}
     	
 		try {
