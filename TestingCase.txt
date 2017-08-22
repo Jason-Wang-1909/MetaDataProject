@@ -1,0 +1,18 @@
+// Title: Testing case for MetaDataProj regarding Java Developer at FINRA
+// Description: Implement a Restful API in spring-boot application to upload a file with a few meta-data fields. Persist meta-data in persistent store (In memory DB or file system and store the content on a file system).
+// Author: Jason-Wang
+// Date August 22, 2017
+
+Test case
+1. use Eclipse and Postman to test the API
+2. run the API on Eclipse and start the service
+3. start the Postman 
+4. under the "New Tab", choose "post" method and type in "http://localhost:8080/upload" 
+5. click on "Body" tab and choose "form-data"
+6. under "key" tab, type in "file" (this is the file name will be consumed by the API), then go to the drop-down menu and change the format from "text" to "file"
+7. once file upload button appears, choose a file from the file system 
+8. go to the next line and type in "Id" in the key field and any number (this would be the userId of clients) in the value field
+9. then click on "send" on the top-right corner.
+10. the response will be displayed, including the meta info of the file uploaded such as userId, fileSize and uploadedDate.
+11. repeat step 6 to 9 for other tests with different files and userIds
+12. it also allows querying the existing files info by using "get" method with query address "http://localhost:8080/findAll" and "http://localhost:8080/findById/{userId}"
