@@ -16,3 +16,6 @@ Test case
 10. the response will be displayed, including the meta info of the file uploaded such as userId, fileSize and uploadedDate.
 11. repeat step 6 to 9 for other tests with different files and userIds
 12. it also allows querying the existing files info by using "get" method with query address "http://localhost:8080/findAll" and "http://localhost:8080/findById/{userId}"
+
+// the API will create a '/upload' folder under the root directory of the application, and create a sub-folder for each user with the userId being the sub-folder name
+// the upload file limit is set to 10MB
