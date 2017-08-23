@@ -2,6 +2,8 @@ package com.jasonwang.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -23,7 +25,7 @@ import com.jasonwang.repository.FileMetaInfoRepository;
 @Service
 public class FileServiceImpl implements FileService {
 	
-	private static final String UPLOAD_PATH = "d://upload/";
+	private static final String UPLOAD_ROOT_PATH = System.getProperty("user.dir") + "\\upload\\";
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileServiceImpl.class);
 
 	@Autowired
@@ -37,34 +39,22 @@ public class FileServiceImpl implements FileService {
 
 	@Transactional
 	private FileMetaInfo saveToDisk(MultipartFile file, String userId) {
-		if (!new File(UPLOAD_PATH).exists()) {
-    		new File(UPLOAD_PATH).mkdir();
+		if (!new File(UPLOAD_ROOT_PATH).exists()) {
+    		new File(UPLOAD_ROOT_PATH).mkdir();
     	}
-		// check the root folder's permission
-		File rootFolder = new File(UPLOAD_PATH);
-		if (!rootFolder.canWrite() || !rootFolder.canExecute() || !rootFolder.canRead()) {
-			rootFolder.setWritable(true, false);
-			rootFolder.setExecutable(true, false);
-			rootFolder.setReadable(true, false);
-		}
-    	
+
 		// check if sub-file directory exists
-    	String filePath = UPLOAD_PATH + userId;
+    	String filePath = UPLOAD_ROOT_PATH + userId;
+    	System.out.println(filePath);
     	if (!new File(filePath).exists()) {
     		new File(filePath).mkdir();
-    	}
-    	// check the sub-folder's permission
-    	File subFolder = new File(filePath);
-    	if (!subFolder.canWrite() || !subFolder.canExecute() || !subFolder.canRead()) {
-    		subFolder.setWritable(true, false);
-    		subFolder.setExecutable(true, false);
-    		subFolder.setReadable(true, false);
-    	}
+    	}    	
     	
 		try {
             file.transferTo(new File(filePath));
 		} catch (IOException e) {
-			e.printStackTrace();		
+//			e.printStackTrace();
+			e.getMessage();
 		}
 		
 		LOGGER.info("File saved to " + filePath);
@@ -82,8 +72,9 @@ public class FileServiceImpl implements FileService {
 		fileMetaInfo.setFileName(file.getOriginalFilename());
 		fileMetaInfo.setFileSize(file.getSize());
 		fileMetaInfo.setUserId(userId);
-		fileMetaInfo.setUploadDate(System.currentTimeMillis());
 		fileMetaInfo.setFileLocation(filePath);
+		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy HH:mm"); 
+		fileMetaInfo.setUploadDate(sdf.format(new Date(System.currentTimeMillis())));
 		
 		fileMetaInfoRepository.save(fileMetaInfo);
 		

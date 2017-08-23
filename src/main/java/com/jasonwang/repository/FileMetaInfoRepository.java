@@ -12,9 +12,5 @@ import com.jasonwang.entity.FileMetaInfo;
  */
 public interface FileMetaInfoRepository extends JpaRepository<FileMetaInfo, Integer> {
 
-	/**
-	 * @param userId
-	 * @return
-	 */
 	List<FileMetaInfo> findFileMetaInfoByUserId(String userId);
 }

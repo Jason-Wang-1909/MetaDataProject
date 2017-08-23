@@ -24,7 +24,7 @@ public class FileMetaInfo implements Serializable {
 	private String userId;
 	private String fileName;
 	private Long fileSize;
-	private long uploadDate;
+	private String uploadDate;
 	private String fileLocation;
 
 	@Id
@@ -61,10 +61,10 @@ public class FileMetaInfo implements Serializable {
 	}
 	
 	@Column
-	public Long getUploadDate() {
+	public String getUploadDate() {
 		return uploadDate;
 	}
-	public void setUploadDate(long uploadDate) {
+	public void setUploadDate(String uploadDate) {
 		this.uploadDate = uploadDate;
 	}	
 	
