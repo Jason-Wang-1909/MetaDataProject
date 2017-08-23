@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Tue Aug 22 22:24:56 EDT 2017:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-0ce8-2d70-000000766270 
-on database directory memory:C:\Users\ZhouWang\workspace\MetaDataProj-5\testdb with class loader sun.misc.Launcher$AppClassLoader@103e736 
+Wed Aug 23 14:24:34 EDT 2017:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-015e-1056-bf86-00000056e1d8 
+on database directory memory:C:\Users\ZhouWang\workspace\MetaDataProj-5\testdb with class loader sun.misc.Launcher$AppClassLoader@4c12b6 
 Loaded from file:/C:/Users/ZhouWang/.m2/repository/org/apache/derby/derby/10.13.1.1/derby-10.13.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_131-b11

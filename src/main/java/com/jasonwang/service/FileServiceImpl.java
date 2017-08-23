@@ -2,6 +2,8 @@ package com.jasonwang.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -44,22 +46,22 @@ public class FileServiceImpl implements FileService {
     	}
 
 		// check if sub-file directory exists
-    	String filePath = UPLOAD_ROOT_PATH + userId;
-    	System.out.println(filePath);
-    	if (!new File(filePath).exists()) {
-    		new File(filePath).mkdir();
+    	String subFolderPath = UPLOAD_ROOT_PATH + userId + "\\";
+    	System.out.println(subFolderPath);
+    	if (!new File(subFolderPath).exists()) {
+    		new File(subFolderPath).mkdir();
     	}    	
     	
+    	String filePath = subFolderPath + file.getOriginalFilename();
 		try {
             file.transferTo(new File(filePath));
 		} catch (IOException e) {
-//			e.printStackTrace();
-			e.getMessage();
+			e.printStackTrace();
 		}
 		
-		LOGGER.info("File saved to " + filePath);
+		LOGGER.info("File saved to " + subFolderPath);
 		
-		return saveFileMetaInfo(file, filePath, userId);
+		return saveFileMetaInfo(file, subFolderPath, userId);
 	}
 
 	@Transactional
