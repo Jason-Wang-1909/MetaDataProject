@@ -2,8 +2,6 @@ package com.jasonwang.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jasonwang.entity.FileMetaInfo;
+import com.jasonwang.exception.EmptyFileUploadException;
 import com.jasonwang.repository.FileMetaInfoRepository;
 
 /**
@@ -47,13 +46,17 @@ public class FileServiceImpl implements FileService {
 
 		// check if sub-file directory exists
     	String subFolderPath = UPLOAD_ROOT_PATH + userId + "\\";
-    	System.out.println(subFolderPath);
     	if (!new File(subFolderPath).exists()) {
     		new File(subFolderPath).mkdir();
     	}    	
     	
-    	String filePath = subFolderPath + file.getOriginalFilename();
+    	String currentTime = String.valueOf(System.currentTimeMillis());
+    	String filePath = subFolderPath + currentTime + "_" + file.getOriginalFilename();    	
 		try {
+			if (file.isEmpty()) {
+				throw new EmptyFileUploadException(file.getName() + " is empty, please try again.");
+			}
+			
             file.transferTo(new File(filePath));
 		} catch (IOException e) {
 			e.printStackTrace();
