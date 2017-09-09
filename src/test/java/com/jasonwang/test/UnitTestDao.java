@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,7 +30,12 @@ public class UnitTestDao {
 	private FileMetaInfoRepository fileMetaInfoRepository;
 	
 	@InjectMocks
-	FileServiceImpl fileServiceImpl;
+	private FileServiceImpl fileServiceImpl;
+	
+	@Before
+    public void setupMock() {
+       MockitoAnnotations.initMocks(this);
+    }
 	
 	@Test(expected=EmptyFileUploadException.class)
 	public void testFileServiceUploadEmptyFile() throws IOException {
