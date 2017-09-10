@@ -44,6 +44,12 @@ public class UnitTestDao {
 	}
 	
 	@Test
+	public void testSaveFileMetaInfo() {
+		fileMetaInfoRepository.save(new FileMetaInfo());
+		assertNotNull(fileMetaInfoRepository.findAll());
+	}
+	
+	@Test
 	public void testFindAllFileMetaInfo() throws Exception{		
 		List<FileMetaInfo> resList = new ArrayList<FileMetaInfo>();
 		resList.add(new FileMetaInfo());		

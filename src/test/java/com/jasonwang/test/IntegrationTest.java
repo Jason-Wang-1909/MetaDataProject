@@ -16,7 +16,6 @@ import com.jasonwang.service.FileService;
 /**
  * @author Jason-Wang
  * @date Sep 9, 2017
- *
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,7 +30,7 @@ public class IntegrationTest {
 	@Test
 	public void testFindAllFileMetaInfoNotNull() throws Exception {
 		fileMetaInfoRepository.save(new FileMetaInfo());
-		assertNotNull(fileService.findAll().size());				
+		assertNotNull(fileService.findAll());				
 	}
 	
 	@Test
